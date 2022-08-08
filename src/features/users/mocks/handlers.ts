@@ -1,5 +1,6 @@
 // src/mocks/handlers.js
 import { RequestHandler, rest } from "msw";
+
 import { User } from "../types";
 
 const mockedUser: User = {
@@ -11,13 +12,14 @@ const mockedUser: User = {
 };
 
 export const handlers: Array<RequestHandler> = [
-  rest.post("/login", (req, res, ctx) => {
+  rest.post("/auth/login", (req, res, ctx) => {
     // Persist user's authentication in the session
     sessionStorage.setItem("is-authenticated", "true");
 
     return res(
       // Respond with a 200 status code
-      ctx.status(200)
+      ctx.status(200),
+      ctx.json(mockedUser)
     );
   }),
 

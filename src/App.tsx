@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { NextUIProvider } from "@nextui-org/react";
+import useDarkMode from "use-dark-mode";
 
-import { NextUIProvider, Button } from "@nextui-org/react";
+import { AppProvider } from "./providers/app";
+import { AppRoutes } from "./routes";
+import { darkTheme, lightTheme } from "./theme/shared";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const darkMode = useDarkMode();
+
+  console.log({ darkTheme });
 
   return (
-    <NextUIProvider>
-      <div>
-        <strong>Counter: {count}</strong>
-        <Button onClick={(e) => setCount((prev) => prev + 1)}>+</Button>
-      </div>
+    <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
+      <AppProvider>
+        <AppRoutes />
+      </AppProvider>
     </NextUIProvider>
   );
 }

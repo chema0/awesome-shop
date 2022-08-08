@@ -1,33 +1,38 @@
-import * as React from "react"
+import * as React from "react";
+
+import { login, LoginCredentialsDTO } from "@/features/auth/api/login";
+import { User } from "@/features/users/types";
 
 interface AuthContextType {
   user: any;
-  signin: (user: string, callback: VoidFunction) => void;
+  signin: (credentials: LoginCredentialsDTO, callback: VoidFunction) => void;
   signout: (callback: VoidFunction) => void;
 }
 
-let AuthContext = React.createContext<AuthContextType>(null!);
+const AuthContext = React.createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  let [user, setUser] = React.useState<User>(null);
+  const [user, setUser] = React.useState<User | null>(null);
 
-  let signin = (newUser: string, callback: VoidFunction) => {
-    // TODO: implement
-    // return fakeAuthProvider.signin(() => {
-    //   setUser(newUser);
-    //   callback();
-    // });
+  const signin = async (
+    credentials: LoginCredentialsDTO,
+    callback: VoidFunction
+  ) => {
+    try {
+      const _user = await login(credentials);
+      setUser(_user.user);
+      callback();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  let signout = (callback: VoidFunction) => {
-    // TODO: logout
-    // return fakeAuthProvider.signout(() => {
-    //   setUser(null);
-    //   callback();
-    // });
+  const signout = (callback: VoidFunction) => {
+    setUser(null);
+    callback();
   };
 
-  let value = { user, signin, signout };
+  const value = { user, signin, signout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -3,5 +3,5 @@ import { useAuth } from "@/lib/authorization";
 export const Dashboard = () => {
   const { user } = useAuth();
 
-  return <main>Dashboard</main>;
+  return <main>Dashboard, user: {user?.username}</main>;
 };
