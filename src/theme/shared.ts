@@ -11,6 +11,7 @@ export const lightTheme = createTheme({
     fonts,
     colors: {
       background: "white",
+      backgroundContrast: "#FBFBFC",
       text: "black",
       link: "black",
     },

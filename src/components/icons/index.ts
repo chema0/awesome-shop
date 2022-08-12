@@ -16,3 +16,5 @@ export const Icon = styled("svg", {});
 
 export { default as Moon } from "./Moon";
 export { default as Sun } from "./Sun";
+export { default as UserIcon } from "./User";
+export { default as GoogleIcon } from "./Google";

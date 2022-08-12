@@ -1,15 +1,18 @@
-import { Col, Container, Row, Text, Link, useTheme } from "@nextui-org/react";
+import { Col, Container, Row, Link } from "@nextui-org/react";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Logo } from "../elements/logo";
-import { ThemeToggle } from "../elements/theme-toogle";
+import { AccountButton } from "@/features/users/components";
+
+import { Logo } from "../header/logo";
+import { ThemeToggle } from "../header/theme-toogle";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export const MainLayout: React.FC<Props> = ({ children }) => {
-  const { theme } = useTheme();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -23,7 +26,7 @@ export const MainLayout: React.FC<Props> = ({ children }) => {
       >
         <Row justify="space-between" align="baseline">
           <Col>
-            <Link href="/" color="text">
+            <Link href="#" color="text" onClick={() => navigate("/")}>
               <Logo />
             </Link>
           </Col>
@@ -36,9 +39,7 @@ export const MainLayout: React.FC<Props> = ({ children }) => {
             }}
           >
             <ThemeToggle />
-            <Text h4>
-              <Link color="text">Account</Link>
-            </Text>
+            <AccountButton />
           </Col>
         </Row>
       </Container>
@@ -50,7 +51,7 @@ export const MainLayout: React.FC<Props> = ({ children }) => {
         alignContent="space-between"
         css={{
           position: "relative",
-          minHeight: "100vh",
+          minHeight: "100%",
           "@mdMax": {
             overflowX: "hidden",
           },

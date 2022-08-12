@@ -7,12 +7,15 @@ interface AuthContextType {
   user: any;
   signin: (credentials: LoginCredentialsDTO, callback: VoidFunction) => void;
   signout: (callback: VoidFunction) => void;
+  isLogged: boolean;
 }
 
 const AuthContext = React.createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<User | null>(null);
+
+  const isLogged = !!user;
 
   const signin = async (
     credentials: LoginCredentialsDTO,
@@ -32,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     callback();
   };
 
-  const value = { user, signin, signout };
+  const value = { user, signin, signout, isLogged };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -9,7 +9,7 @@ export const Landing = () => {
       display="flex"
       justify="center"
       alignItems="flex-start"
-      css={{ pt: "5rem" }}
+      css={{ pt: "5rem", pb: "5rem" }}
     >
       <Row>
         <Col>
@@ -37,15 +37,15 @@ export const Landing = () => {
           <Spacer y={1.5} />
 
           <Text h2 weight="bold">
-            Create your own style
+            Search
           </Text>
           <Spacer y={0.5} />
           <Text h2 weight="bold">
-            Choose among your favourite brands
+            Choose
           </Text>
           <Spacer y={0.5} />
           <Text h2 weight="bold">
-            Let's us do it for you
+            Buy
           </Text>
         </Col>
 
