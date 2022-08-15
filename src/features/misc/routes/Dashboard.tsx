@@ -1,7 +1,5 @@
-import { useAuth } from "@/lib/authorization";
+import { Container } from "@nextui-org/react";
 
 export const Dashboard = () => {
-  const { user } = useAuth();
-
-  return <main>Dashboard, user: {user?.username}</main>;
+  return <Container css={{ h: "80vh" }}>Welcome to your dashboard!</Container>;
 };

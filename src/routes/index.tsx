@@ -16,5 +16,7 @@ export const AppRoutes = () => {
 
   const element = useRoutes([...routes, ...commonRoutes]);
 
+  console.log([...routes, ...commonRoutes]);
+
   return <MainLayout>{element}</MainLayout>;
 };

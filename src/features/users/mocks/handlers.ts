@@ -4,10 +4,10 @@ import { RequestHandler, rest } from "msw";
 import { User } from "../types";
 
 const mockedUser: User = {
-  username: "user",
-  firstName: "name",
-  lastName: "last name",
-  email: "user@mock.com",
+  username: "chema_",
+  firstName: "Chema",
+  lastName: "Martínez",
+  email: "chema@awesome.com",
   role: "ADMIN",
 };
 

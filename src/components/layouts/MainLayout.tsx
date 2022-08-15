@@ -2,7 +2,8 @@ import { Col, Container, Row, Link } from "@nextui-org/react";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { AccountButton } from "@/features/users/components";
+
+import { UserAccount } from "@/features/users/components/UserAccount";
 
 import { Logo } from "../header/logo";
 import { ThemeToggle } from "../header/theme-toogle";
@@ -39,7 +40,7 @@ export const MainLayout: React.FC<Props> = ({ children }) => {
             }}
           >
             <ThemeToggle />
-            <AccountButton />
+            <UserAccount />
           </Col>
         </Row>
       </Container>

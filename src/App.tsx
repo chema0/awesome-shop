@@ -8,7 +8,7 @@ import { darkTheme, lightTheme } from "./theme/shared";
 function App() {
   const darkMode = useDarkMode();
 
-  console.log({ darkTheme });
+  console.log({ darkTheme, lightTheme });
 
   return (
     <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
