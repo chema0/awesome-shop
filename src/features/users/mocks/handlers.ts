@@ -11,6 +11,8 @@ const mockedUser: User = {
   role: "ADMIN",
 };
 
+const DELAY = 2000;
+
 export const handlers: Array<RequestHandler> = [
   rest.post("/auth/login", (req, res, ctx) => {
     // Persist user's authentication in the session
@@ -19,7 +21,8 @@ export const handlers: Array<RequestHandler> = [
     return res(
       // Respond with a 200 status code
       ctx.status(200),
-      ctx.json(mockedUser)
+      ctx.json(mockedUser),
+      ctx.delay(DELAY)
     );
   }),
 
