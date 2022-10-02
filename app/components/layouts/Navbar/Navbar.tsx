@@ -5,7 +5,8 @@ import {
   Navbar as NUINavbar,
   Text,
 } from "@nextui-org/react";
-import { Logo } from "../Logo";
+import { Logo } from "../../Logo";
+import { ThemeToggle } from "../ThemeToogle";
 
 const Navbar = () => {
   const collapseItems = [
@@ -40,12 +41,12 @@ const Navbar = () => {
         </Text>
       </NUINavbar.Brand>
       <NUINavbar.Content enableCursorHighlight hideIn="xs" variant="underline">
-        <NUINavbar.Link href="#">Features</NUINavbar.Link>
         <NUINavbar.Link isActive href="#">
-          Customers
+          Home
         </NUINavbar.Link>
-        <NUINavbar.Link href="#">Pricing</NUINavbar.Link>
-        <NUINavbar.Link href="#">Company</NUINavbar.Link>
+        <NUINavbar.Link href="/trends">Trends</NUINavbar.Link>
+        <NUINavbar.Link href="/store">Store</NUINavbar.Link>
+        <NUINavbar.Link href="/sales">Sales</NUINavbar.Link>
       </NUINavbar.Content>
       <NUINavbar.Content
         css={{
@@ -55,13 +56,14 @@ const Navbar = () => {
           },
         }}
       >
+        <ThemeToggle />
         <Dropdown placement="bottom-right">
           <NUINavbar.Item>
             <Dropdown.Trigger>
               <Avatar
                 bordered
                 as="button"
-                color="secondary"
+                color="primary"
                 size="md"
                 src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
               />
@@ -69,7 +71,7 @@ const Navbar = () => {
           </NUINavbar.Item>
           <Dropdown.Menu
             aria-label="User menu actions"
-            color="secondary"
+            color="primary"
             onAction={(actionKey) => console.log({ actionKey })}
           >
             <Dropdown.Item key="profile" css={{ height: "$18" }}>
@@ -83,14 +85,14 @@ const Navbar = () => {
             <Dropdown.Item key="settings" withDivider>
               My Settings
             </Dropdown.Item>
-            <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
+            <Dropdown.Item key="team_settings">Notifications</Dropdown.Item>
             <Dropdown.Item key="analytics" withDivider>
-              Analytics
+              Orders
             </Dropdown.Item>
-            <Dropdown.Item key="system">System</Dropdown.Item>
-            <Dropdown.Item key="configurations">Configurations</Dropdown.Item>
+            <Dropdown.Item key="system">Payments</Dropdown.Item>
+            <Dropdown.Item key="configurations">Profile</Dropdown.Item>
             <Dropdown.Item key="help_and_feedback" withDivider>
-              Help & Feedback
+              Help & Support
             </Dropdown.Item>
             <Dropdown.Item key="logout" withDivider color="error">
               Log Out
@@ -124,4 +126,4 @@ const Navbar = () => {
   );
 };
 
-export { Navbar };
+export default Navbar;

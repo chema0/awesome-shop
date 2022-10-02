@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
-import { Box } from "../box";
-import { Navbar } from "./navbar";
+import { Box } from "../Box";
+import Footer from "./Footer";
+import Navbar from "./Navbar/Navbar";
 
 type MainLayoutProps = {
   children: ReactElement;
@@ -11,11 +12,14 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     <Box
       css={{
         maxW: "100%",
+        d: "flex",
+        fd: "column",
+        jc: "space-between",
       }}
     >
       <Navbar />
       <main style={{ padding: "2rem 6rem" }}>{children}</main>
-      {/* <Footer /> */}
+      <Footer />
     </Box>
   );
 };

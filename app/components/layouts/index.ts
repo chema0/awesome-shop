@@ -1,4 +1,3 @@
-import { MainLayout } from "./main-layout";
-import { Navbar } from "./navbar";
+import { MainLayout } from "./MainLayout";
 
-export { MainLayout, Navbar };
+export { MainLayout };
