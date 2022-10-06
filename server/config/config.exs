@@ -7,16 +7,15 @@
 # General application configuration
 import Config
 
-config :server,
-  namespace: AwesomeShop,
+config :awesome_shop,
   ecto_repos: [AwesomeShop.Repo]
 
 # Configures the endpoint
-config :server, AwesomeShopWeb.Endpoint,
+config :awesome_shop, AwesomeShopWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: AwesomeShopWeb.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: AwesomeShop.PubSub,
-  live_view: [signing_salt: "LhvFAcOY"]
+  live_view: [signing_salt: "Wd2zFtF2"]
 
 # Configures the mailer
 #
@@ -25,7 +24,7 @@ config :server, AwesomeShopWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :server, AwesomeShop.Mailer, adapter: Swoosh.Adapters.Local
+config :awesome_shop, AwesomeShop.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false

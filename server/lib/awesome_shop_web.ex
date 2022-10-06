@@ -30,7 +30,7 @@ defmodule AwesomeShopWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/server_web/templates",
+        root: "lib/awesome_shop_web/templates",
         namespace: AwesomeShopWeb
 
       # Import convenience functions from controllers

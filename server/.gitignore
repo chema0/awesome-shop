@@ -20,7 +20,7 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-server-*.tar
+awesome_shop-*.tar
 
-# Ignore env file
+# Env files
 .env

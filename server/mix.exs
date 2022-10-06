@@ -3,7 +3,7 @@ defmodule AwesomeShop.MixProject do
 
   def project do
     [
-      app: :server,
+      app: :awesome_shop,
       version: "0.1.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
