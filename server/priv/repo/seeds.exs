@@ -9,3 +9,53 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+manufacturers = [
+  %{name: "Fujifilm"},
+  %{name: "Nike"},
+  %{name: "Adidas"},
+  %{name: "Apple"}
+]
+
+for manufacturer <- manufacturers do
+  {:ok, _} = AwesomeShop.Catalog.create_manufacturer(manufacturer)
+end
+
+products = [
+  %{
+    name: "Fujifilm DSLR Camera",
+    description: "High quality black Fujifilm DSLR Camera",
+    manufacturer_id: 1,
+    price: 3000,
+    stock: 50,
+    image: "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg"
+  },
+  %{
+    name: "Nike Sneakers",
+    description: "Cool white Nike sneakers",
+    manufacturer_id: 2,
+    price: 80,
+    stock: 100,
+    image: "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg"
+  },
+  %{
+    name: "Adidas Yeezy Boost",
+    description: "White Adidas Yeezy sneakers",
+    manufacturer_id: 3,
+    price: 90,
+    stock: 100,
+    image: "https://images.pexels.com/photos/6050909/pexels-photo-6050909.jpeg"
+  },
+  %{
+    name: "Apple Watch",
+    description: "Last generation Apple Watch with white band",
+    manufacturer_id: 4,
+    price: 500,
+    stock: 200,
+    image: "https://images.pexels.com/photos/2779018/pexels-photo-2779018.jpeg"
+  }
+]
+
+for product <- products do
+  {:ok, _} = AwesomeShop.Catalog.create_product(product)
+end

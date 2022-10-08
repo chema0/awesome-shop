@@ -5,6 +5,9 @@ config :awesome_shop, AwesomeShop.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
+  # PostgreSQL with docker runs in default port + 1 to avoid conflicts with
+  # local PostgreSQL instance
+  port: 5433,
   database: "awesome_shop_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,

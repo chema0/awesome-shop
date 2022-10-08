@@ -62,4 +62,58 @@ defmodule AwesomeShop.CatalogTest do
       assert %Ecto.Changeset{} = Catalog.change_product(product)
     end
   end
+
+  describe "manufacturers" do
+    alias AwesomeShop.Catalog.Manufacturer
+
+    import AwesomeShop.CatalogFixtures
+
+    @invalid_attrs %{name: nil}
+
+    test "list_manufacturers/0 returns all manufacturers" do
+      manufacturer = manufacturer_fixture()
+      assert Catalog.list_manufacturers() == [manufacturer]
+    end
+
+    test "get_manufacturer!/1 returns the manufacturer with given id" do
+      manufacturer = manufacturer_fixture()
+      assert Catalog.get_manufacturer!(manufacturer.id) == manufacturer
+    end
+
+    test "create_manufacturer/1 with valid data creates a manufacturer" do
+      valid_attrs = %{name: "some name"}
+
+      assert {:ok, %Manufacturer{} = manufacturer} = Catalog.create_manufacturer(valid_attrs)
+      assert manufacturer.name == "some name"
+    end
+
+    test "create_manufacturer/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Catalog.create_manufacturer(@invalid_attrs)
+    end
+
+    test "update_manufacturer/2 with valid data updates the manufacturer" do
+      manufacturer = manufacturer_fixture()
+      update_attrs = %{name: "some updated name"}
+
+      assert {:ok, %Manufacturer{} = manufacturer} = Catalog.update_manufacturer(manufacturer, update_attrs)
+      assert manufacturer.name == "some updated name"
+    end
+
+    test "update_manufacturer/2 with invalid data returns error changeset" do
+      manufacturer = manufacturer_fixture()
+      assert {:error, %Ecto.Changeset{}} = Catalog.update_manufacturer(manufacturer, @invalid_attrs)
+      assert manufacturer == Catalog.get_manufacturer!(manufacturer.id)
+    end
+
+    test "delete_manufacturer/1 deletes the manufacturer" do
+      manufacturer = manufacturer_fixture()
+      assert {:ok, %Manufacturer{}} = Catalog.delete_manufacturer(manufacturer)
+      assert_raise Ecto.NoResultsError, fn -> Catalog.get_manufacturer!(manufacturer.id) end
+    end
+
+    test "change_manufacturer/1 returns a manufacturer changeset" do
+      manufacturer = manufacturer_fixture()
+      assert %Ecto.Changeset{} = Catalog.change_manufacturer(manufacturer)
+    end
+  end
 end

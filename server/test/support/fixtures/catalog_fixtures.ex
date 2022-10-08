@@ -20,4 +20,18 @@ defmodule AwesomeShop.CatalogFixtures do
 
     product
   end
+
+  @doc """
+  Generate a manufacturer.
+  """
+  def manufacturer_fixture(attrs \\ %{}) do
+    {:ok, manufacturer} =
+      attrs
+      |> Enum.into(%{
+        name: "some name"
+      })
+      |> AwesomeShop.Catalog.create_manufacturer()
+
+    manufacturer
+  end
 end
