@@ -10,13 +10,13 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-# for manufacturer <- ["Fujifilm", "Nike", "Adidas", "Apple"] do
-#   {:ok, _} = AwesomeShop.Catalog.create_manufacturer(%{name: manufacturer})
-# end
+for manufacturer <- ["Fujifilm", "Nike", "Adidas", "Apple"] do
+  {:ok, _} = AwesomeShop.Catalog.create_manufacturer(%{name: manufacturer})
+end
 
-# for category <- ["Technology", "Clothes", "Shoes", "Photography", "Decoration"] do
-#   {:ok, _} = AwesomeShop.Catalog.create_category(%{name: category})
-# end
+for category <- ["Technology", "Clothes", "Shoes", "Photography", "Decoration"] do
+  {:ok, _} = AwesomeShop.Catalog.create_category(%{name: category})
+end
 
 products = [
   %{

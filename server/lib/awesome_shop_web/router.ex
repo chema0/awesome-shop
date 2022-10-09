@@ -1,12 +1,24 @@
 defmodule AwesomeShopWeb.Router do
   use AwesomeShopWeb, :router
+  use Pow.Phoenix.Router
 
   pipeline :api do
     plug(:accepts, ["json"])
   end
 
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
+  scope "/api" do
+    pipe_through :api
+
+    pow_routes()
+  end
+
   scope "/api", AwesomeShopWeb do
-    pipe_through(:api)
+    pipe_through [:api, :protected]
 
     resources "/products", ProductController, except: [:new, :edit]
     resources "/manufacturers", ManufacturerController, except: [:new, :edit]

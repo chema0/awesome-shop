@@ -10,5 +10,9 @@ defmodule AwesomeShop.Repo.Migrations.CreateProductCategories do
     create index(:product_categories, [:product_id])
     create index(:product_categories, [:category_id])
     create unique_index(:product_categories, [:product_id, :category_id])
+
+    alter table(:products) do
+      add :manufacturer_id, references(:manufacturers)
+    end
   end
 end
