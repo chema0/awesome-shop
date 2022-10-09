@@ -3,6 +3,7 @@ defmodule AwesomeShop.Catalog.Product do
   import Ecto.Changeset
 
   alias AwesomeShop.Catalog.Manufacturer
+  alias AwesomeShop.Catalog.Category
 
   schema "products" do
     field :description, :string
@@ -12,6 +13,7 @@ defmodule AwesomeShop.Catalog.Product do
     field :stock, :integer, default: 0
 
     belongs_to :manufacturer, Manufacturer
+    many_to_many :categories, Category, join_through: "product_categories", on_replace: :delete
 
     timestamps()
   end

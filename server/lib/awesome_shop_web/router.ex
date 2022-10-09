@@ -10,6 +10,7 @@ defmodule AwesomeShopWeb.Router do
 
     resources "/products", ProductController, except: [:new, :edit]
     resources "/manufacturers", ManufacturerController, except: [:new, :edit]
+    resources "/categories", CategoryController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
