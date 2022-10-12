@@ -1,7 +1,8 @@
 import { GitHub, Heart } from "@/components/icons";
-import { Link, Text } from "@nextui-org/react";
+import { Text } from "@nextui-org/react";
 import { externalLinks } from "external-links";
-import { Box } from "../../Box";
+import { Box } from "../../elements";
+import Link from "next/link";
 import { Logo } from "../../Logo";
 
 const Footer = () => {
@@ -24,8 +25,12 @@ const Footer = () => {
         </Box>
 
         <Box css={{ d: "flex", gap: "$8" }}>
-          <Link color="text">About</Link>
-          <Link color="text">Contact</Link>
+          <Link href="/about" color="text">
+            About
+          </Link>
+          <Link href="/contact" color="text">
+            Contact
+          </Link>
         </Box>
       </Box>
 

@@ -4,4 +4,4 @@ const Box = styled("div", {
   boxSizing: "border-box",
 });
 
-export { Box };
+export default Box;

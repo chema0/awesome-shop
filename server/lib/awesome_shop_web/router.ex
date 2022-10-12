@@ -3,7 +3,7 @@ defmodule AwesomeShopWeb.Router do
   use Pow.Phoenix.Router
 
   pipeline :api do
-    plug(:accepts, ["json"])
+    plug :accepts, ["json"]
   end
 
   pipeline :protected do
@@ -18,7 +18,8 @@ defmodule AwesomeShopWeb.Router do
   end
 
   scope "/api", AwesomeShopWeb do
-    pipe_through [:api, :protected]
+    # pipe_through [:api, :protected]
+    pipe_through [:api]
 
     resources "/products", ProductController, except: [:new, :edit]
     resources "/manufacturers", ManufacturerController, except: [:new, :edit]

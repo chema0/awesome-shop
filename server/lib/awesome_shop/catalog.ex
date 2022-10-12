@@ -8,6 +8,8 @@ defmodule AwesomeShop.Catalog do
 
   alias AwesomeShop.Catalog.Product
 
+  @products_limit 50
+
   @doc """
   Returns the list of products.
 
@@ -18,7 +20,41 @@ defmodule AwesomeShop.Catalog do
 
   """
   def list_products do
-    Repo.all(Product)
+    query =
+      from p in Product,
+        limit: @products_limit,
+        order_by: p.inserted_at
+
+    Repo.all(query)
+  end
+
+  # def list_products(nil, offset) do
+  #   IO.puts("list_products with offset = #{offset}")
+  #   []
+  # end
+
+  def list_products(limit, offset \\ 0)
+
+  def list_products(limit, offset) when is_nil(limit) do
+    query =
+      from p in Product,
+        limit: @products_limit,
+        offset: ^offset,
+        order_by: p.inserted_at
+
+    Repo.all(query)
+  end
+
+  def list_products(limit, offset) do
+    IO.puts("list_products with limit = #{limit} and offset = #{offset}")
+
+    query =
+      from p in Product,
+        limit: ^limit,
+        offset: ^offset,
+        order_by: p.inserted_at
+
+    Repo.all(query)
   end
 
   @doc """

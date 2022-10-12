@@ -5,22 +5,20 @@ import {
   Navbar as NUINavbar,
   Text,
 } from "@nextui-org/react";
+import { useRouter } from "next/router";
+import { useMemo } from "react";
 import { Logo } from "../../Logo";
 import { ThemeToggle } from "../ThemeToogle";
 
 const Navbar = () => {
-  const collapseItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
+  const router = useRouter();
+
+  const collapseItems = useMemo(
+    () => ["Home", "Store", "Profile", "Orders", "Logout"],
+    []
+  );
+
+  const getIsActive = (path: string) => router.asPath === path;
 
   return (
     <NUINavbar isBordered variant="sticky" maxWidth={"fluid"}>
@@ -40,13 +38,18 @@ const Navbar = () => {
           Awesome Shop
         </Text>
       </NUINavbar.Brand>
-      <NUINavbar.Content enableCursorHighlight hideIn="xs" variant="underline">
-        <NUINavbar.Link isActive href="#">
+      <NUINavbar.Content
+        enableCursorHighlight
+        activeColor="secondary"
+        hideIn="xs"
+        variant="underline"
+      >
+        <NUINavbar.Link isActive={getIsActive("/")} href="/">
           Home
         </NUINavbar.Link>
-        <NUINavbar.Link href="/trends">Trends</NUINavbar.Link>
-        <NUINavbar.Link href="/store">Store</NUINavbar.Link>
-        <NUINavbar.Link href="/sales">Sales</NUINavbar.Link>
+        <NUINavbar.Link isActive={getIsActive("/store")} href="/store">
+          Store
+        </NUINavbar.Link>
       </NUINavbar.Content>
       <NUINavbar.Content
         css={{
@@ -63,7 +66,7 @@ const Navbar = () => {
               <Avatar
                 bordered
                 as="button"
-                color="primary"
+                color="default"
                 size="md"
                 src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
               />
@@ -71,7 +74,7 @@ const Navbar = () => {
           </NUINavbar.Item>
           <Dropdown.Menu
             aria-label="User menu actions"
-            color="primary"
+            color="default"
             onAction={(actionKey) => console.log({ actionKey })}
           >
             <Dropdown.Item key="profile" css={{ height: "$18" }}>
@@ -82,18 +85,10 @@ const Navbar = () => {
                 zoey@example.com
               </Text>
             </Dropdown.Item>
-            <Dropdown.Item key="settings" withDivider>
-              My Settings
+            <Dropdown.Item key="configurations" withDivider>
+              Profile
             </Dropdown.Item>
-            <Dropdown.Item key="team_settings">Notifications</Dropdown.Item>
-            <Dropdown.Item key="analytics" withDivider>
-              Orders
-            </Dropdown.Item>
-            <Dropdown.Item key="system">Payments</Dropdown.Item>
-            <Dropdown.Item key="configurations">Profile</Dropdown.Item>
-            <Dropdown.Item key="help_and_feedback" withDivider>
-              Help & Support
-            </Dropdown.Item>
+            <Dropdown.Item key="analytics">Orders</Dropdown.Item>
             <Dropdown.Item key="logout" withDivider color="error">
               Log Out
             </Dropdown.Item>

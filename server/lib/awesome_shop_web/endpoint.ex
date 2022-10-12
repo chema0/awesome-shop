@@ -45,5 +45,8 @@ defmodule AwesomeShopWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug Pow.Plug.Session, otp_app: :awesome_shop
+
+  plug CORSPlug
+
   plug AwesomeShopWeb.Router
 end

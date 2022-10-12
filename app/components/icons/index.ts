@@ -19,3 +19,4 @@ export { default as Sun } from "./Sun";
 export { default as ShopBag } from "./ShopBag";
 export { default as Heart } from "./Heart";
 export { default as GitHub } from "./GitHub";
+export { default as RightArrow } from "./RightArrow";

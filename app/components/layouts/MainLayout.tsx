@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { Box } from "../Box";
+import { Box } from "../elements";
 import Footer from "./Footer";
 import Navbar from "./Navbar/Navbar";
 
