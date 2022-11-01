@@ -62,7 +62,7 @@ const Page: NextPageWithLayout = () => {
         <Spacer />
 
         <Row>
-          <ProductsGrid />
+          <ProductsGrid limit={4} />
         </Row>
 
         <Spacer y={2} />
@@ -90,7 +90,7 @@ const Page: NextPageWithLayout = () => {
         <Spacer />
 
         <Row>
-          <ProductsGrid />
+          <ProductsGrid limit={4} />
         </Row>
       </Container>
     </div>

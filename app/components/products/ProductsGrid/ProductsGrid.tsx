@@ -3,8 +3,16 @@ import { useProducts } from "hooks";
 import { formatNumber } from "utils/currency";
 import ProductCard from "../ProductCard";
 
-const ProductsGrid = () => {
-  const { data, isLoading, isError } = useProducts();
+type ProductsGridProps = {
+  limit?: number;
+};
+
+const ProductsGrid = ({ limit }: ProductsGridProps) => {
+  const { data, isLoading, isError } = useProducts({
+    params: {
+      limit,
+    },
+  });
 
   if (isLoading || !data) {
     return <div>Loading...</div>;
