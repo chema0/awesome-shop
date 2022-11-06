@@ -21,9 +21,10 @@ defmodule AwesomeShop.Catalog do
   """
   def list_products do
     query =
-      from p in Product,
+      from(p in Product,
         limit: @products_limit,
         order_by: p.inserted_at
+      )
 
     Repo.all(query)
   end
@@ -37,10 +38,11 @@ defmodule AwesomeShop.Catalog do
 
   def list_products(limit, offset) when is_nil(limit) do
     query =
-      from p in Product,
+      from(p in Product,
         limit: @products_limit,
         offset: ^offset,
         order_by: p.inserted_at
+      )
 
     Repo.all(query)
   end
@@ -49,12 +51,62 @@ defmodule AwesomeShop.Catalog do
     IO.puts("list_products with limit = #{limit} and offset = #{offset}")
 
     query =
-      from p in Product,
+      from(p in Product,
         limit: ^limit,
         offset: ^offset,
         order_by: p.inserted_at
+      )
 
     Repo.all(query)
+  end
+
+  def list_products_with_cursor(limit \\ @products_limit) do
+    query = from(p in Product, order_by: [asc: p.inserted_at, asc: p.id])
+
+    %{entries: entries, metadata: metadata} =
+      Repo.paginate(
+        query,
+        cursor_fields: [:id],
+        include_total_count: true,
+        limit: limit
+      )
+
+    {entries,
+     %{
+       total_size: metadata.total_count,
+       next_page: metadata.after
+     }}
+  end
+
+  def list_products_with_cursor(limit \\ @products_limit, cursor, direction) do
+    query = from(p in Product, order_by: [asc: p.inserted_at, asc: p.id])
+
+    %{entries: entries, metadata: metadata} =
+      case direction do
+        :before ->
+          %{entries: entries, metadata: metadata} =
+            Repo.paginate(
+              query,
+              before: cursor,
+              cursor_fields: [:id],
+              limit: limit
+            )
+
+        :after ->
+          Repo.paginate(
+            query,
+            after: cursor,
+            cursor_fields: [:id],
+            limit: limit
+          )
+      end
+
+    {entries,
+     %{
+       total_size: metadata.total_count,
+       prev_page: metadata.before,
+       next_page: metadata.after
+     }}
   end
 
   @doc """
@@ -260,7 +312,7 @@ defmodule AwesomeShop.Catalog do
   def list_categories_by_id(nil), do: []
 
   def list_categories_by_id(category_ids) do
-    Repo.all(from c in Category, where: c.id in ^category_ids)
+    Repo.all(from(c in Category, where: c.id in ^category_ids))
   end
 
   @doc """

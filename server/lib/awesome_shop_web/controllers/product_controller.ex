@@ -4,7 +4,9 @@ defmodule AwesomeShopWeb.ProductController do
   alias AwesomeShop.Catalog
   alias AwesomeShop.Catalog.Product
 
-  action_fallback AwesomeShopWeb.FallbackController
+  action_fallback(AwesomeShopWeb.FallbackController)
+
+  # Pagination with offset - limit
 
   def index(conn, %{"limit" => limit, "offset" => offset}) do
     with {:ok, integer_limit} <- validate_integer_positive_param(conn, "limit", limit),
@@ -25,6 +27,29 @@ defmodule AwesomeShopWeb.ProductController do
     with {:ok, n} <- validate_integer_positive_param(conn, "offset", offset) do
       products = Catalog.list_products(nil, n)
       render(conn, "index.json", products: products)
+    end
+  end
+
+  # Cursor based pagination
+
+  def index(conn, %{"page_size" => page_size, "prev_page" => prev_page}) do
+    with {:ok, n} <- validate_integer_positive_param(conn, "page_size", page_size) do
+      {products, meta} = Catalog.list_products_with_cursor(n, prev_page, :before)
+      render(conn, "index.json", %{products: products, meta: meta})
+    end
+  end
+
+  def index(conn, %{"page_size" => page_size, "next_page" => next_page}) do
+    with {:ok, n} <- validate_integer_positive_param(conn, "page_size", page_size) do
+      {products, meta} = Catalog.list_products_with_cursor(n, next_page, :after)
+      render(conn, "index.json", %{products: products, meta: meta})
+    end
+  end
+
+  def index(conn, %{"page_size" => page_size}) do
+    with {:ok, n} <- validate_integer_positive_param(conn, "page_size", page_size) do
+      {products, meta} = Catalog.list_products_with_cursor(n)
+      render(conn, "index.json", %{products: products, meta: meta})
     end
   end
 

@@ -45,7 +45,9 @@ defmodule AwesomeShop.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:pow, "~> 1.0.27"},
-      {:cors_plug, "~> 3.0"}    ]
+      {:cors_plug, "~> 3.0"},
+      {:paginator, "~> 1.2.0"}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

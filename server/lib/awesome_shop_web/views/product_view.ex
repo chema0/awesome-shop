@@ -2,6 +2,13 @@ defmodule AwesomeShopWeb.ProductView do
   use AwesomeShopWeb, :view
   alias AwesomeShopWeb.ProductView
 
+  def render("index.json", %{products: products, meta: meta}) do
+    %{
+      data: render_many(products, ProductView, "product.json"),
+      meta: meta
+    }
+  end
+
   def render("index.json", %{products: products}) do
     render_many(products, ProductView, "product.json")
   end
