@@ -2,8 +2,8 @@ import type { ReactElement } from "react";
 import { MainLayout } from "@/components/layouts";
 import type { NextPageWithLayout } from "./_app";
 import { Container, Row, Text, Spacer } from "@nextui-org/react";
-import ProductsGrid from "@/components/products/ProductsGrid";
 import { Box, Header } from "../components";
+import ProductsStack from "@/components/products/ProductsStack";
 
 const Page: NextPageWithLayout = () => {
   return (
@@ -62,7 +62,7 @@ const Page: NextPageWithLayout = () => {
         <Spacer />
 
         <Row>
-          <ProductsGrid limit={4} />
+          <ProductsStack limit={4} />
         </Row>
 
         <Spacer y={2} />
@@ -90,7 +90,7 @@ const Page: NextPageWithLayout = () => {
         <Spacer />
 
         <Row>
-          <ProductsGrid limit={4} />
+          <ProductsStack limit={4} />
         </Row>
       </Container>
     </div>

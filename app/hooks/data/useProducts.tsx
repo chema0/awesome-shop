@@ -1,20 +1,42 @@
 import useFetch from "hooks/useFetch";
-import { Product } from "types";
+import { Meta, Product } from "types";
 
 type UseProductProps = {
-  params?: {
-    limit?: number;
+  params: {
+    pageSize: number;
+    prevPage?: string;
+    nextPage?: string;
   };
 };
 
-const useProducts = ({ params }: UseProductProps) => {
-  let url = "/products";
+// const getKey = (pageToken: string, previousPageData) => {
+//   // reached the end
+//   if (previousPageData && !previousPageData.data) return null;
 
-  if (params?.limit) {
-    url += `?limit=${params.limit}`;
+//   // first page, we don't have `previousPageData`
+//   if (pageIndex === 0) return `/users?limit=10`;
+
+//   // add the cursor to the API endpoint
+//   return `/users?cursor=${previousPageData.nextCursor}&limit=10`;
+// };
+
+const useProducts = ({ params }: UseProductProps) => {
+  let url = "/products?";
+
+  if (params?.pageSize) {
+    url += `page_size=${params.pageSize}`;
   }
 
-  return useFetch<Product[]>(url);
+  if (params.prevPage) {
+    url += `&prev_page=${params.prevPage}`;
+  } else if (params.nextPage) {
+    url += `&next_page=${params.nextPage}`;
+  }
+
+  return useFetch<{
+    data: Product[];
+    meta: Meta;
+  }>(url);
 };
 
 export default useProducts;

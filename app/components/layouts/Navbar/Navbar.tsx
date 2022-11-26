@@ -34,9 +34,11 @@ const Navbar = () => {
         }}
       >
         <Logo />
-        <Text b color="inherit" hideIn="xs">
-          Awesome Shop
-        </Text>
+        <Link href="/" color="inherit">
+          <Text b hideIn="xs">
+            Awesome Shop
+          </Text>
+        </Link>
       </NUINavbar.Brand>
       <NUINavbar.Content
         enableCursorHighlight

@@ -1,4 +1,4 @@
-import { Card, Row, Text } from "@nextui-org/react";
+import { Card, CardProps, Row, Text } from "@nextui-org/react";
 import { FC } from "react";
 
 type ProductCardProps = {
@@ -8,11 +8,11 @@ type ProductCardProps = {
     price: string;
     img: string;
   };
-};
+} & Partial<CardProps>;
 
-const ProductCard: FC<ProductCardProps> = ({ item }) => {
+const ProductCard: FC<ProductCardProps> = ({ item, ...props }) => {
   return (
-    <Card isPressable>
+    <Card isPressable {...props}>
       <Card.Body css={{ p: 0 }}>
         <Card.Image
           src={item.img}

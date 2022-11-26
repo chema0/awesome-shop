@@ -11,6 +11,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <Box
       css={{
+        h: "100vh",
         maxW: "100%",
         d: "flex",
         fd: "column",
@@ -18,7 +19,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       }}
     >
       <Navbar />
-      <main style={{ padding: "2rem 6rem" }}>{children}</main>
+      <main style={{ flex: 1, padding: "2rem 6rem" }}>{children}</main>
       <Footer />
     </Box>
   );

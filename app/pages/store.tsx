@@ -4,7 +4,7 @@ import type { NextPageWithLayout } from "./_app";
 import ProductsGrid from "@/components/products/ProductsGrid";
 
 const Page: NextPageWithLayout = () => {
-  return <ProductsGrid />;
+  return <ProductsGrid enablePagination limit={8} />;
 };
 
 Page.getLayout = function getLayout(page: ReactElement) {

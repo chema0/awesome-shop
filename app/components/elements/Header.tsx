@@ -12,9 +12,9 @@ const Header: FC<HeaderProps> = ({ children }) => {
   return (
     <Container fluid display="flex" justify="space-between" alignItems="center">
       {children}
-      <Box>
-        <Link href="/" color="text">
-          <RightArrow />
+      <Box css={{cursor: "pointer"}}>
+        <Link href="/store" color="text" >
+          <RightArrow size={32} />
         </Link>
       </Box>
     </Container>

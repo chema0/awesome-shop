@@ -1,4 +1,6 @@
 import Header from "./Header";
 import Box from "./Box";
+import { LoadingProgress, LoadingProgressProps } from "./Loading";
 
-export { Box, Header };
+export type { LoadingProgressProps };
+export { Box, Header, LoadingProgress };
