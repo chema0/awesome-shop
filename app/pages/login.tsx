@@ -67,6 +67,8 @@ const Page: NextPageWithLayout = () => {
             name="email"
             type="email"
             labelPlaceholder="Email"
+            onChange={formik.handleChange}
+            value={formik.values.email}
             // error={errors["email"]}
           />
 
@@ -78,6 +80,8 @@ const Page: NextPageWithLayout = () => {
               id="password"
               name="password"
               labelPlaceholder="Password"
+              onChange={formik.handleChange}
+              value={formik.values.password}
             />
             <span style={{ display: "flex", justifyContent: "flex-end" }}>
               <Link href="#" color="primary" css={{ mt: "1rem" }}>
@@ -117,12 +121,10 @@ const Page: NextPageWithLayout = () => {
           Google
         </Button> */}
 
-          <Text h5>
-            Don&apos;t have an account yet?
-            <Link href="#" color="primary" css={{ ml: "0.25rem" }}>
-              Register now
-            </Link>
-          </Text>
+          <Text h5>Don&apos;t have an account yet?</Text>
+          <Link href="#" color="primary" css={{ ml: "0.25rem" }}>
+            Register now
+          </Link>
         </Row>
       </Container>
     </form>

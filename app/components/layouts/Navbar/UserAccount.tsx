@@ -8,7 +8,7 @@ import {
   Navbar,
   Text,
 } from "@nextui-org/react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const UserAccount = () => {
   const { data: session, status } = useSession();
@@ -17,19 +17,22 @@ const UserAccount = () => {
 
   console.log({ session });
 
+  const handleAction = (key: "profile" | "logout") => {
+    console.log(key);
+    if (key === "logout") {
+      signOut({
+        callbackUrl: "/",
+      });
+      return;
+    }
+  };
+
   if (isLoading) {
     return <Loading type="gradient" />;
   }
 
   if (!session) {
     return (
-      // <Button
-      //   flat
-      //   size="sm"
-      //   color="default"
-      //   icon={<User fill="currentColor" size={20} />}
-      //   onClick={() => signIn()}
-      // />
       <Link href="#" onClick={() => signIn()} css={{ cursor: "pointer" }}>
         <Avatar squared icon={<User size={20} fill="currentColor" />} />
       </Link>
@@ -52,7 +55,7 @@ const UserAccount = () => {
       <Dropdown.Menu
         aria-label="User menu actions"
         color="default"
-        onAction={(actionKey) => console.log({ actionKey })}
+        onAction={handleAction}
       >
         <Dropdown.Item key="profile" css={{ height: "$18" }}>
           <Text b color="inherit" css={{ d: "flex" }}>
