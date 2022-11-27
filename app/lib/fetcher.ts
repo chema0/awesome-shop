@@ -1,7 +1,7 @@
 import { API_URL } from "config";
 
-const fetcher = async (url: string) => {
-  const res = await fetch(API_URL + url);
+const fetcher = async (url: string, init?: RequestInit) => {
+  const res = await fetch(API_URL + url, init);
 
   // If the status code is not in the range 200-299,
   // we still try to parse and throw it.
@@ -11,6 +11,10 @@ const fetcher = async (url: string) => {
     error.message = await res.json();
     error.cause = res.status;
     throw error;
+  }
+
+  if (!res.body) {
+    return Promise.resolve();
   }
 
   return res.json();

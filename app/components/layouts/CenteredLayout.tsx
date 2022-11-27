@@ -3,11 +3,11 @@ import { Box } from "../elements";
 import Footer from "./Footer";
 import Navbar from "./Navbar/Navbar";
 
-type MainLayoutProps = {
+type CenteredLayoutProps = {
   children: ReactElement;
 };
 
-const MainLayout = ({ children }: MainLayoutProps) => {
+const CenteredLayout = ({ children }: CenteredLayoutProps) => {
   return (
     <Box
       css={{
@@ -19,10 +19,19 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       }}
     >
       <Navbar />
-      <main style={{ flex: 1, padding: "2rem 6rem" }}>{children}</main>
+      <main
+        style={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {children}
+      </main>
       <Footer />
     </Box>
   );
 };
 
-export default MainLayout;
+export default CenteredLayout;

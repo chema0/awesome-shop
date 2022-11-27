@@ -1,10 +1,13 @@
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials"
+import { API_URL } from "config";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { AuthorizeResult } from "types/authentication";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     CredentialsProvider({
+      id: "credentials",
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
       // The credentials is used to generate a suitable form on the sign in page.
@@ -12,32 +15,72 @@ export const authOptions = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: {
+          label: "Email",
+          type: "text",
+          placeholder: "jsmith@domain.com",
+        },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         // You need to provide your own logic here that takes the credentials
         // submitted and returns either a object representing a user or value
         // that is false/null if the credentials are invalid.
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        const res = await fetch("/your/endpoint", {
+        const res = await fetch(`${API_URL}/signin`, {
           method: "POST",
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },
         });
-        const user = await res.json();
+
+        const result = await res.json();
 
         // If no error and we have user data, return it
-        if (res.ok && user) {
-          return user;
+        if (res.ok && result) {
+          return result;
         }
         // Return null if user data could not be retrieved
         return null;
       },
     }),
   ],
+  pages: {
+    signIn: "/login",
+  },
+  callbacks: {
+    async signIn({ user, profile, email, credentials }) {
+      console.log({ user, email, profile, credentials });
+      const isAllowedToSignIn = !!user;
+
+      if (isAllowedToSignIn) {
+        return true;
+      } else {
+        // Return false to display a default error message
+        return false;
+        // Or you can return a URL to redirect to:
+        // return '/unauthorized'
+      }
+    },
+    async jwt({ token, user: auth }) {
+      // Persist the OAuth access_token and or the user id to the token right after signin
+      if (auth) {
+        token.accessToken = auth.session.access_token;
+        token.renewalToken = auth.session.renewal_token;
+        token.id = auth.user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Send properties to the client, like an access_token and user id from a provider.
+      session.accessToken = token.accessToken;
+      session.renewalToken = token.renewalToken;
+      session.user.id = token.id;
+
+      return session;
+    },
+  },
 };
 
 export default NextAuth(authOptions);

@@ -1,4 +1,4 @@
-defmodule AwesomeShopWeb.RegistrationController do
+defmodule AwesomeShopWeb.AuthenticationController do
   use AwesomeShopWeb, :controller
 
   alias Ecto.Changeset
@@ -24,6 +24,31 @@ defmodule AwesomeShopWeb.RegistrationController do
         conn
         |> put_status(500)
         |> json(%{error: %{status: 500, message: "Couldn't create user", errors: errors}})
+    end
+  end
+
+  @spec sign_in(Conn.t(), map()) :: Conn.t()
+  def sign_in(conn, params) do
+    conn
+    |> Pow.Plug.authenticate_user(params)
+    |> case do
+      {:ok, conn} ->
+        user = conn.assigns.current_user
+
+        render(conn, "show.json",
+          authentication: %{
+            user: user,
+            session: %{
+              access_token: conn.private.api_access_token,
+              renewal_token: conn.private.api_renewal_token
+            }
+          }
+        )
+
+      {:error, conn} ->
+        conn
+        |> put_status(401)
+        |> json(%{error: %{status: 401, message: "Invalid email or password"}})
     end
   end
 end

@@ -26,8 +26,6 @@ defmodule AwesomeShopWeb.SessionController do
   def renew(conn, _params) do
     config = Pow.Plug.fetch_config(conn)
 
-    IO.inspect(conn)
-
     conn
     |> APIAuthPlug.renew(config)
     |> case do

@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { Logo } from "../../Logo";
 import { ThemeToggle } from "../ThemeToogle";
+import UserAccount from "./UserAccount";
 
 const Navbar = () => {
   const router = useRouter();
@@ -62,40 +63,7 @@ const Navbar = () => {
         }}
       >
         <ThemeToggle />
-        <Dropdown placement="bottom-right">
-          <NUINavbar.Item>
-            <Dropdown.Trigger>
-              <Avatar
-                bordered
-                as="button"
-                color="default"
-                size="md"
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-              />
-            </Dropdown.Trigger>
-          </NUINavbar.Item>
-          <Dropdown.Menu
-            aria-label="User menu actions"
-            color="default"
-            onAction={(actionKey) => console.log({ actionKey })}
-          >
-            <Dropdown.Item key="profile" css={{ height: "$18" }}>
-              <Text b color="inherit" css={{ d: "flex" }}>
-                Signed in as
-              </Text>
-              <Text b color="inherit" css={{ d: "flex" }}>
-                zoey@example.com
-              </Text>
-            </Dropdown.Item>
-            <Dropdown.Item key="configurations" withDivider>
-              Profile
-            </Dropdown.Item>
-            <Dropdown.Item key="analytics">Orders</Dropdown.Item>
-            <Dropdown.Item key="logout" withDivider color="error">
-              Log Out
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+        <UserAccount />
       </NUINavbar.Content>
       <NUINavbar.Collapse>
         {collapseItems.map((item, index) => (

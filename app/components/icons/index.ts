@@ -20,3 +20,4 @@ export { default as ShopBag } from "./ShopBag";
 export { default as Heart } from "./Heart";
 export { default as GitHub } from "./GitHub";
 export { default as RightArrow } from "./RightArrow";
+export { default as User } from "./User";

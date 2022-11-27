@@ -124,8 +124,6 @@ defmodule AwesomeShopWeb.APIAuthPlug do
   defp signing_salt(), do: Atom.to_string(__MODULE__)
 
   defp fetch_access_token(conn) do
-    IO.inspect(conn)
-
     case Conn.get_req_header(conn, "authorization") do
       [token | _rest] -> {:ok, token}
       _any -> :error

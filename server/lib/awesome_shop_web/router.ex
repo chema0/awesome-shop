@@ -1,4 +1,5 @@
 defmodule AwesomeShopWeb.Router do
+  # alias AwesomeShopWeb.AuthenticationController
   use AwesomeShopWeb, :router
   use Pow.Phoenix.Router
 
@@ -19,7 +20,8 @@ defmodule AwesomeShopWeb.Router do
   scope "/api", AwesomeShopWeb do
     pipe_through [:api]
 
-    resources "/registration", RegistrationController, singleton: true, only: [:create]
+    resources "/registration", AuthenticationController, singleton: true, only: [:create]
+    post "/signin", AuthenticationController, :sign_in
     resources "/session", SessionController, singleton: true, only: [:create, :delete]
     post "/session/renew", SessionController, :renew
 
@@ -33,7 +35,6 @@ defmodule AwesomeShopWeb.Router do
 
     # Protected routes
   end
-
 
   # Enables LiveDashboard only for development
   #

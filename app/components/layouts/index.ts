@@ -1,3 +1,4 @@
-import { MainLayout } from "./MainLayout";
+import MainLayout from "./MainLayout";
+import CenteredLayout from "./CenteredLayout";
 
-export { MainLayout };
+export { MainLayout, CenteredLayout };
