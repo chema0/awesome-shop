@@ -4,27 +4,36 @@ defmodule AwesomeShopWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug AwesomeShopWeb.APIAuthPlug, otp_app: :awesome_shop
   end
 
-  pipeline :protected do
+  pipeline :api_protected do
     plug Pow.Plug.RequireAuthenticated,
-      error_handler: Pow.Phoenix.PlugErrorHandler
+      error_handler: AwesomeShopWeb.APIAuthErrorHandler
   end
 
-  scope "/api" do
-    pipe_through :api
-
-    pow_routes()
-  end
+  # scope "/api" do
+  #   pipe_through :api
+  # end
 
   scope "/api", AwesomeShopWeb do
-    # pipe_through [:api, :protected]
     pipe_through [:api]
+
+    resources "/registration", RegistrationController, singleton: true, only: [:create]
+    resources "/session", SessionController, singleton: true, only: [:create, :delete]
+    post "/session/renew", SessionController, :renew
 
     resources "/products", ProductController, except: [:new, :edit]
     resources "/manufacturers", ManufacturerController, except: [:new, :edit]
     resources "/categories", CategoryController, except: [:new, :edit]
   end
+
+  scope "/api", AwesomeShopWeb do
+    pipe_through [:api, :protected]
+
+    # Protected routes
+  end
+
 
   # Enables LiveDashboard only for development
   #
