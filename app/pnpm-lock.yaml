@@ -9,6 +9,7 @@ specifiers:
   eslint-config-next: 12.3.1
   eslint-config-prettier: ^8.5.0
   formik: ^2.2.9
+  jose: ^4.11.1
   next: 12.3.1
   next-auth: ^4.13.0
   next-themes: ^0.2.1
@@ -20,6 +21,7 @@ specifiers:
 dependencies:
   '@nextui-org/react': 1.0.0-beta.10_biqbaboplfbrettd7655fr4n2y
   formik: 2.2.9_react@18.2.0
+  jose: 4.11.1
   next: 12.3.1_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.13.0_azq6kxkn3od7qdylwkyksrwopy
   react: 18.2.0
@@ -2069,8 +2071,8 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
-  /jose/4.10.0:
-    resolution: {integrity: sha512-KEhB/eLGLomWGPTb+/RNbYsTjIyx03JmbqAyIyiXBuNSa7CmNrJd5ysFhblayzs/e/vbOPMUaLnjHUMhGp4yLw==}
+  /jose/4.11.1:
+    resolution: {integrity: sha512-YRv4Tk/Wlug8qicwqFNFVEZSdbROCHRAC6qu/i0dyNKr5JQdoa2pIGoS04lLO/jXQX7Z9omoNewYIVIxqZBd9Q==}
     dev: false
 
   /js-sdsl/4.1.5:
@@ -2218,7 +2220,7 @@ packages:
       '@babel/runtime': 7.19.0
       '@panva/hkdf': 1.0.2
       cookie: 0.5.0
-      jose: 4.10.0
+      jose: 4.11.1
       next: 12.3.1_biqbaboplfbrettd7655fr4n2y
       oauth: 0.9.15
       openid-client: 5.1.10
@@ -2366,7 +2368,7 @@ packages:
   /openid-client/5.1.10:
     resolution: {integrity: sha512-KYAtkxTuUwTvjAmH0QMFFP3i9l0+XhP2/blct6Q9kn+DUJ/lu8/g/bI8ghSgxz9dJLm/9cpB/1uLVGTcGGY0hw==}
     dependencies:
-      jose: 4.10.0
+      jose: 4.11.1
       lru-cache: 6.0.0
       object-hash: 2.2.0
       oidc-token-hash: 5.0.1

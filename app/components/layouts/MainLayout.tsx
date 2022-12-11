@@ -19,7 +19,16 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       }}
     >
       <Navbar />
-      <main style={{ flex: 1, padding: "2rem 6rem" }}>{children}</main>
+      <Box
+        css={{
+          flex: 1,
+          "@smMin": {
+            p: "2rem 6rem",
+          },
+        }}
+      >
+        {children}
+      </Box>
       <Footer />
     </Box>
   );

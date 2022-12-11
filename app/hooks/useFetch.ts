@@ -6,16 +6,25 @@ const defaultOptions = {
   revalidateOnFocus: false,
 } as SWRConfiguration;
 
-const useFetch = <T,>(key: string, options?: SWRConfiguration) => {
-  const { data, error } = useSWR<T>(key, fetcher, {
-    ...defaultOptions,
-    ...options,
-  });
+const useFetch = <T,>(
+  key: string,
+  options?: SWRConfiguration,
+  fetcherInit?: RequestInit
+) => {
+  const { data, error, ...rest } = useSWR<T>(
+    key,
+    (url) => fetcher(url, fetcherInit),
+    {
+      ...defaultOptions,
+      ...options,
+    }
+  );
   return {
     data,
     isLoading: !error && !data,
     isError: error,
     error: error,
+    ...rest,
   };
 };
 

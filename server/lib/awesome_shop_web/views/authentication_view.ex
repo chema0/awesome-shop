@@ -9,14 +9,18 @@ defmodule AwesomeShopWeb.AuthenticationView do
   def render("authentication.json", %{authentication: authentication}) do
     %{user: user, session: session} = authentication
 
+    user = %{
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      image: user.image
+    }
+
     %{
-      user: %{
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        image: user.image
-      },
+      user: user,
       session: session
     }
+
+    # Map.merge(user, session)
   end
 end

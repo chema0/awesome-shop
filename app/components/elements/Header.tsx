@@ -14,7 +14,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
       {children}
       <Box css={{cursor: "pointer"}}>
         <Link href="/store" color="text" >
-          <RightArrow size={32} />
+          <RightArrow size={30} />
         </Link>
       </Box>
     </Container>

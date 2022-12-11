@@ -33,8 +33,19 @@ const ProductsStack = ({ limit, LoadingProgressProps }: ProductsStackProps) => {
 
   return (
     <>
-      <Box css={{ d: "flex", gap: "$8", w: "100%" }}>
+      <Box
+        css={{
+          d: "flex",
+          gap: "$8",
+          // width: "20%",
+          // maxW: "40%",
+          flexWrap: "wrap",
+          flexGrow: 1,
+          // flexBasis: "auto",
+        }}
+      >
         {data.map((p) => (
+          // <div>
           <ProductCard
             item={{
               id: p.id,
@@ -42,8 +53,10 @@ const ProductsStack = ({ limit, LoadingProgressProps }: ProductsStackProps) => {
               price: formatNumber(p.price),
               img: p.image,
             }}
+            css={{ flex: 1, flexGrow: 1, minWidth: "18rem" }}
             key={p.id}
           />
+          // </div>
         ))}
       </Box>
     </>

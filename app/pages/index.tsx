@@ -1,15 +1,24 @@
 import type { ReactElement } from "react";
 import { MainLayout } from "@/components/layouts";
 import type { NextPageWithLayout } from "./_app";
-import { Container, Row, Text, Spacer } from "@nextui-org/react";
+import { Container, Row, Col, Text, Spacer } from "@nextui-org/react";
 import { Box, Header } from "../components";
 import ProductsStack from "@/components/products/ProductsStack";
 
 const Page: NextPageWithLayout = () => {
   return (
     <div>
-      <Container responsive css={{ pt: "2rem", pb: "5rem" }}>
-        <Row gap={1} css={{ d: "flex", gap: "$6", jc: "center" }}>
+      <Container
+        responsive
+        css={{
+          pt: "2rem",
+          pb: "5rem",
+        }}
+      >
+        <Row
+          gap={1}
+          css={{ d: "flex", gap: "$6", jc: "center", flexWrap: "wrap" }}
+        >
           <Text h1 size={60} weight="bold">
             Welcome to
           </Text>

@@ -1,6 +1,5 @@
 import { API_URL } from "config";
 import type { Adapter } from "next-auth/adapters";
-import fetcher from "./fetcher";
 
 type CreateUserDTO = {
   email: string;

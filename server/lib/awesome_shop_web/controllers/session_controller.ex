@@ -12,7 +12,7 @@ defmodule AwesomeShopWeb.SessionController do
       {:ok, conn} ->
         json(conn, %{
           access_token: conn.private.api_access_token,
-          renewal_token: conn.private.api_renewal_token
+          refresh_token: conn.private.api_renewal_token
         })
 
       {:error, conn} ->
@@ -37,7 +37,7 @@ defmodule AwesomeShopWeb.SessionController do
       {conn, _user} ->
         json(conn, %{
           access_token: conn.private.api_access_token,
-          renewal_token: conn.private.api_renewal_token
+          refresh_token: conn.private.api_renewal_token
         })
     end
   end

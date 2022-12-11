@@ -1,7 +1,48 @@
 import { API_URL } from "config";
 import NextAuth, { NextAuthOptions } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { AuthorizeResult } from "types/authentication";
+import { decodeJwt } from "lib/jwt";
+import { AuthorizeResult, Session } from "lib";
+
+/**
+ * Takes a token, and returns a new token with updated
+ * `accessToken` and `accessTokenExpires`. If an error occurs,
+ * returns the old token and an error property
+ */
+async function refreshAccessToken(token: JWT) {
+  try {
+    const response = await fetch(`${API_URL}/session/renew`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token.refreshToken as string,
+      },
+    });
+
+    const refreshedTokens = (await response.json()) as Session;
+
+    if (!response.ok) {
+      throw refreshedTokens;
+    }
+
+    delete token.error;
+
+    return {
+      ...token,
+      accessToken: refreshedTokens.access_token,
+      accessTokenExpires: refreshedTokens.expires_at * 1000,
+      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
+    };
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -18,7 +59,7 @@ export const authOptions: NextAuthOptions = {
         email: {
           label: "Email",
           type: "text",
-          placeholder: "jsmith@domain.com",
+          placeholder: "jsmith@awesomeshop.com",
         },
         password: { label: "Password", type: "password" },
       },
@@ -37,6 +78,8 @@ export const authOptions: NextAuthOptions = {
 
         const result = await res.json();
 
+        console.log({ res, result });
+
         // If no error and we have user data, return it
         if (res.ok && result) {
           return result;
@@ -50,9 +93,16 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    async signIn({ user, profile, email, credentials }) {
-      console.log({ user, email, profile, credentials });
+    async signIn({ user, account, credentials }) {
       const isAllowedToSignIn = !!user;
+
+      if (credentials && account) {
+        // Set up account data with session info
+        const session = (user as AuthorizeResult).session as Session;
+        account.access_token = session.access_token;
+        account.refresh_token = session.refresh_token;
+        account.expires_at = decodeJwt(session.access_token).exp;
+      }
 
       if (isAllowedToSignIn) {
         return true;
@@ -63,20 +113,29 @@ export const authOptions: NextAuthOptions = {
         // return '/unauthorized'
       }
     },
-    async jwt({ token, user: auth }) {
-      // Persist the OAuth access_token and or the user id to the token right after signin
-      if (auth) {
-        token.accessToken = auth.session.access_token;
-        token.renewalToken = auth.session.renewal_token;
-        token.id = auth.user.id;
+    async jwt({ token, account, user }) {
+      console.log({ account, user });
+      if (account && user) {
+        return {
+          accessToken: account.access_token,
+          accessTokenExpires: account.expires_at && account.expires_at * 1000,
+          refreshToken: account.refresh_token,
+          user,
+        };
       }
-      return token;
+
+      if (Date.now() < (token.accessTokenExpires as number)) {
+        return token;
+      }
+
+      return refreshAccessToken(token);
     },
     async session({ session, token }) {
-      // Send properties to the client, like an access_token and user id from a provider.
+      console.log({ session, token });
+      session.user = token.user;
       session.accessToken = token.accessToken;
-      session.renewalToken = token.renewalToken;
-      session.user.id = token.id;
+      session.error = token.error;
+      session.expires = new Date(token.accessTokenExpires).toISOString();
 
       return session;
     },

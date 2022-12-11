@@ -1,17 +1,19 @@
 import { User } from "@/components/icons";
 import {
   Avatar,
-  Button,
   Dropdown,
   Link,
   Loading,
   Navbar,
   Text,
 } from "@nextui-org/react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSignOut } from "hooks";
+import { signIn, useSession } from "next-auth/react";
 
 const UserAccount = () => {
   const { data: session, status } = useSession();
+
+  const { clearSession } = useSignOut();
 
   const isLoading = status === "loading";
 
@@ -20,9 +22,7 @@ const UserAccount = () => {
   const handleAction = (key: "profile" | "logout") => {
     console.log(key);
     if (key === "logout") {
-      signOut({
-        callbackUrl: "/",
-      });
+      clearSession();
       return;
     }
   };

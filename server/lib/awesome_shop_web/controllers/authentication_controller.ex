@@ -14,7 +14,7 @@ defmodule AwesomeShopWeb.AuthenticationController do
         json(conn, %{
           data: %{
             access_token: conn.private.api_access_token,
-            renewal_token: conn.private.api_renewal_token
+            refresh_token: conn.private.api_renewal_token
           }
         })
 
@@ -40,7 +40,7 @@ defmodule AwesomeShopWeb.AuthenticationController do
             user: user,
             session: %{
               access_token: conn.private.api_access_token,
-              renewal_token: conn.private.api_renewal_token
+              refresh_token: conn.private.api_renewal_token
             }
           }
         )

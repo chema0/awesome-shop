@@ -7,5 +7,5 @@ export type AuthorizeResult = {
 
 export type Session = {
   access_token: string;
-  renewal_token: string;
+  refresh_token: string;
 };

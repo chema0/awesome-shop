@@ -117,11 +117,13 @@ defmodule AwesomeShopWeb.APIAuthPlug do
     end
   end
 
-  defp sign_token(conn, data, opts) do
-    Phoenix.Token.sign(conn, signing_salt(), data, opts)
+  defp sign_token(_conn, data, _opts) do
+    # Phoenix.Token.sign(conn, signing_salt(), data, opts)
+    extra_claims = %{"user_id" => data}
+    AwesomeShop.Token.generate_and_sign!(extra_claims)
   end
 
-  defp signing_salt(), do: Atom.to_string(__MODULE__)
+  # defp signing_salt(), do: Atom.to_string(__MODULE__)
 
   defp fetch_access_token(conn) do
     case Conn.get_req_header(conn, "authorization") do
@@ -130,8 +132,9 @@ defmodule AwesomeShopWeb.APIAuthPlug do
     end
   end
 
-  defp verify_token(conn, token, _config) do
-    case Phoenix.Token.verify(conn, signing_salt(), token) do
+  defp verify_token(_conn, token, _config) do
+    # case Phoenix.Token.verify(conn, signing_salt(), token) do
+    case AwesomeShop.Token.verify_and_validate(token) do
       {:ok, _} -> {:ok, token}
       _ -> nil
     end
